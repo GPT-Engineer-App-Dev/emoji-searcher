@@ -12,7 +12,7 @@ const Index = () => {
   const handleSearch = () => {
     const queryWords = searchQuery.toLowerCase().split(' ');
     const filtered = emojiData.filter(emoji => 
-      queryWords.some(word => emoji.keywords.includes(word))
+      queryWords.some(word => emoji.keywords.split(' ').some(keyword => keyword.includes(word)))
     );
     setFilteredEmojis(filtered);
   };
