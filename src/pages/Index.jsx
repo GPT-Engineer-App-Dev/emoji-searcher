@@ -10,7 +10,10 @@ const Index = () => {
   const toast = useToast();
 
   const handleSearch = () => {
-    const filtered = emojiData.filter(emoji => emoji.keywords.includes(searchQuery.toLowerCase()));
+    const queryWords = searchQuery.toLowerCase().split(' ');
+    const filtered = emojiData.filter(emoji => 
+      queryWords.some(word => emoji.keywords.includes(word))
+    );
     setFilteredEmojis(filtered);
   };
 
