@@ -1,0 +1,8 @@
+[
+  {"slug": "smile", "symbol": "😄", "keywords": "happy joy smile"},
+  {"slug": "sad", "symbol": "😢", "keywords": "sad tears weep"},
+  {"slug": "heart", "symbol": "❤️", "keywords": "love heart like"},
+  {"slug": "thumbs-up", "symbol": "👍", "keywords": "approve ok good"},
+  {"slug": "fire", "symbol": "🔥", "keywords": "hot burn flame"},
+  {"slug": "cat", "symbol": "🐱", "keywords": "cat animal pet"}
+]
