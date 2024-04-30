@@ -1,15 +1,55 @@
-// Complete the Index page component here
-// Use chakra-ui
-import { Button } from "@chakra-ui/react"; // example
-import { FaPlus } from "react-icons/fa"; // example - use react-icons/fa for icons
+import { useState } from 'react';
+import { Box, Input, SimpleGrid, IconButton, useClipboard, useToast } from '@chakra-ui/react';
+import { FaSearch } from 'react-icons/fa';
+import emojiData from '../data/emojis.json';
 
 const Index = () => {
-  // TODO: Create the website here!
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredEmojis, setFilteredEmojis] = useState([]);
+  const { onCopy } = useClipboard('');
+  const toast = useToast();
+
+  const handleSearch = () => {
+    const filtered = emojiData.filter(emoji => emoji.keywords.includes(searchQuery.toLowerCase()));
+    setFilteredEmojis(filtered);
+  };
+
+  const handleEmojiClick = (emoji) => {
+    onCopy(emoji.symbol);
+    toast({
+      title: 'Copied!',
+      description: `${emoji.symbol} has been copied to your clipboard.`,
+      status: 'success',
+      duration: 2000,
+      isClosable: true,
+    });
+  };
+
   return (
-    <Button>
-      Hello world! <FaPlus />
-    </Button>
-  ); // example
+    <Box p={8}>
+      <Box mb={4}>
+        <Input
+          placeholder="Search for emojis..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          size="lg"
+          rightElement={<IconButton aria-label="Search" icon={<FaSearch />} onClick={handleSearch} />}
+        />
+      </Box>
+      <SimpleGrid columns={{ base: 3, md: 6, lg: 10 }} spacing={4}>
+        {filteredEmojis.map(emoji => (
+          <IconButton
+            key={emoji.slug}
+            aria-label={emoji.slug}
+            icon={emoji.symbol}
+            fontSize="2xl"
+            onClick={() => handleEmojiClick(emoji)}
+            variant="ghost"
+          />
+        ))}
+      </SimpleGrid>
+    </Box>
+  );
 };
 
 export default Index;
